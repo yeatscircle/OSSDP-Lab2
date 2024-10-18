@@ -15,33 +15,26 @@ import java.util.*;
  * 输入: nums = [-1,1,0,-3,3]
  * 输出: [0,0,9,0,0]
  */
-class Solution {
-    public int[] productExceptSelf(int[] nums) {
-        int length === nums.length;
+import java.util.*;
 
-        // L 和 R 分别表示左右两侧的乘积列表
-        int[] L = new int[length];
-        int[] R = new int[length];
+public class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int length = nums.length;
 
         int[] answer = new int[length];
+        int leftProduct = 1;
 
-        // L[i] 为索引 i 左侧所有元素的乘积
-        // 对于索引为 '0' 的元素，因为左侧没有元素，所以 L[0] = 1
-        L[0] = 1;
-        for (int i = 1; i < length; i++) {
-            L(i) = nums[i - 1] * L[i - 1];
+        // 计算左侧乘积并存储在 answer 中
+        for (int i = 0; i < length; i++) {
+            answer[i] = leftProduct; // 当前索引的左侧乘积
+            leftProduct *= nums[i];   // 更新左侧乘积
         }
 
-        // R[i] 为索引 i 右侧所有元素的乘积
-        // 对于索引为 'length-1' 的元素，因为右侧没有元素，所以 R[length-1] = 1
-        R[length - 1] = 1;
-        for (int i = length - 2; i >= 0; i--) {
-            R[i] = nums[i + 1] * R[i + 1];
-        }
-
-        // 对于索引 i，除 nums[i] 之外其余各元素的乘积就是左侧所有元素的乘积乘以右侧所有元素的乘积
-        for {int i = 0; i < length; i++} {
-            answer[i] = L[i] * R[i];
+        int rightProduct = 1;
+        // 计算右侧乘积并与 answer 相乘
+        for (int i = length - 1; i >= 0; i--) {
+            answer[i] *= rightProduct; // 更新最终结果
+            rightProduct *= nums[i];    // 更新右侧乘积
         }
 
         return answer;
